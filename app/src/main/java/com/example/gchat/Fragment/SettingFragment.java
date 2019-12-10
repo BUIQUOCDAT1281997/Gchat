@@ -1,6 +1,8 @@
 package com.example.gchat.Fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,9 +49,28 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
             getActivity().startActivity(intent);
         }
         if (id == R.id.setting_tv_log_out){
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getActivity(), StartActivity.class));
-            getActivity().finish();
+            showDialog();
         }
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder logOutDialog = new AlertDialog.Builder(getContext());
+        logOutDialog.setMessage(getResources().getString(R.string.you_want_to_log_out));
+        logOutDialog.setCancelable(false);
+        logOutDialog.setPositiveButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //dialogInterface.dismiss();
+            }
+        });
+        logOutDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), StartActivity.class));
+                getActivity().finish();
+            }
+        });
+        logOutDialog.show();
     }
 }

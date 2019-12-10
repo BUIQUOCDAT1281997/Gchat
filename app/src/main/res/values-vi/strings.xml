@@ -10,12 +10,10 @@
     <string name="forgot_password">Quên mật khẩu?</string>
     <string name="log_in">Đăng nhập</string>
     <string name="password">Mật khẩu</string>
-    <string name="remember_me">Lưu mật khẩu của tôi</string>
     <string name="textView_login">Đăng nhập</string>
     <string name="edit_profile">Chỉnh sửa Profile của bạn</string>
     <string name="status">Hôm nay bạn thế nào ?</string>
     <string name="user_name">Nhập tên của bạn</string>
-    <string name="sign_in_with_phone_number">Đăng nhập bằng số điện thoại</string>
     <string name="log_out">Đăng xuất</string>
     <string name="search">Tìm kiếm</string>
     <string name="your_account">Xem trang cá nhân của bạn</string>
@@ -23,5 +21,7 @@
     <string name="seen">Đã xem</string>
     <string name="Authentication_failed">Email hoặc mật khẩu không chính xác :(</string>
     <string name="All_fields_are_required">Không mục nào được để trống :)</string>
-    <string name="please_wait">Hãy đợi giây lát...</string>
+    <string name="please_wait">Hãy đợi giây lát…</string>
+    <string name="aa">Aa...</string>
+    <string name="hi">Chào bạn!</string>
 </resources>

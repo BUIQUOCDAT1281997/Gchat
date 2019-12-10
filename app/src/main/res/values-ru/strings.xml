@@ -6,4 +6,22 @@
     <string name="search">Найти</string>
     <string name="user_name">Твое имя</string>
     <string name="Authentication_failed">Почта и пароль не верны</string>
+    <string name="aa">Aa...</string>
+    <string name="All_fields_are_required">Все поля обязательны для заполнения</string>
+    <string name="create">Регистрация</string>
+    <string name="create_new_account">Зарегистрировать новый аккаунт</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi">Привет!</string>
+    <string name="log_in">Войти</string>
+    <string name="log_out">Выйти</string>
+    <string name="not_seen">не видел</string>
+    <string name="please_wait">Подождите...</string>
+    <string name="seen">Видели</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_up">Выйти</string>
+    <string name="status">Состояние</string>
+    <string name="textView_login">Войти в Ваший аккаунт</string>
+    <string name="your_account">Ваший профиль</string>
 </resources>

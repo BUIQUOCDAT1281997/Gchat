@@ -73,7 +73,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         if (!user.getAvatarURL().equals("default")) {
             Glide.with(mContext).load(user.getAvatarURL()).into(holder.imgUser);
         } else
-            holder.imgUser.setImageResource(R.drawable.pngtest);
+            holder.imgUser.setImageResource(R.drawable.ic_user);
 
         setBorderImgUser(holder.imgUser, user.getId());
 

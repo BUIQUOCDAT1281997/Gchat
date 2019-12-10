@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -61,7 +59,6 @@ public class ChatActivity extends AppCompatActivity {
     private String userIDFriend;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +77,7 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //recyclerview
+        //recyclerView
         recyclerView = findViewById(R.id.recycler_view_message);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -91,7 +88,6 @@ public class ChatActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 String currentText = texSend.getText().toString();
                 if (!TextUtils.isEmpty(currentText)) {
@@ -108,6 +104,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                assert user != null;
                 useName.setText(user.getUserName());
                 if (!user.getAvatarURL().equals("default")) {
                     Glide.with(getApplicationContext()).load(user.getAvatarURL()).into(imgUser);
@@ -166,9 +163,7 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-           }
-
-
+    }
 
 
     private void readMessage(final String myId, final String userID, final String imageUrl) {
@@ -181,6 +176,7 @@ public class ChatActivity extends AppCompatActivity {
                 listData.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
+                    assert chat != null;
                     if ((chat.getSender().equals(myId) && chat.getReceiver().equals(userID))
                             || (chat.getSender().equals(userID) && chat.getReceiver().equals(myId))) {
                         listData.add(chat);
@@ -257,12 +253,10 @@ public class ChatActivity extends AppCompatActivity {
         setCurrentUser("default");
     }
 
-
     //notification
     private void setCurrentUser(String user) {
         SharedPreferences.Editor editor = getSharedPreferences("Preferences_Shared", MODE_PRIVATE).edit();
         editor.putString("currentUser", user);
         editor.apply();
     }
-
 }

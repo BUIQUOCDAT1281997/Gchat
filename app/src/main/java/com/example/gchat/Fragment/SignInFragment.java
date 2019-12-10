@@ -53,7 +53,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
 
         initView(view);
 
-        view.findViewById(R.id.sign_in_with_number_phone).setOnClickListener(this);
         view.findViewById(R.id.sign_in_forgot).setOnClickListener(this);
         view.findViewById(R.id.sign_in_button).setOnClickListener(this);
 

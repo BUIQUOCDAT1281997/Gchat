@@ -6,10 +6,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-
+import android.content.IntentFilter;
 import android.os.Bundle;
 
-
+import com.example.gchat.Other.NetworkChangeReceiver;
 import com.example.gchat.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     //FireBase
     private DatabaseReference reference;
     private FirebaseUser firebaseUser;
+
+    private NetworkChangeReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +66,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setOnOff("online");
+        receiver = new NetworkChangeReceiver();
+        final IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(receiver, filter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         setOnOff("offline");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(receiver);
     }
 }

@@ -1,13 +1,18 @@
 package com.example.gchat.Fragment;
 
-
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -48,6 +53,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2019;
     //views
     private View rootView;
     private TextView tvUserName, tvStatus;
@@ -57,6 +63,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     //storage
     private StorageReference mStorageRef;
     private static final int IMAGE_REQUEST_CODE = 100;
+    private static final int CAMERA = 99;
+    private static final int READ_STORAGE = 1997;
     private Uri imageUri;
     private StorageTask uploadTask;
 
@@ -69,6 +77,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_account, container, false);
+
 
         initView(rootView);
         reference.addValueEventListener(new ValueEventListener() {
@@ -125,28 +134,38 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.profile_image) {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            startActivityForResult(intent, IMAGE_REQUEST_CODE);
+            showPictureDialog();
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == RESULT_OK
-                && requestCode == IMAGE_REQUEST_CODE
-                && data != null
-                && data.getData() != null) {
 
-            imageUri = data.getData();
-            //imgUser.setImageURI(imageUri);
+        if (resultCode == RESULT_OK && data !=null && data.getData() != null){
 
-            if (uploadTask != null && uploadTask.isInProgress()) {
-                Toast.makeText(getContext(), "Upload in progress", Toast.LENGTH_LONG).show();
-            } else
-                fileUploader();
+            switch (requestCode){
+                case IMAGE_REQUEST_CODE :{
+                    imageUri = data.getData();
+                    //imgUser.setImageURI(imageUri);
 
+                    if (uploadTask != null && uploadTask.isInProgress()) {
+                        Toast.makeText(getContext(), "Upload in progress", Toast.LENGTH_LONG).show();
+                    } else
+                        fileUploader();
+
+                    break;
+                }
+                case CAMERA : {
+
+                    // TODO
+                    break;
+                }
+
+                default: break;
+            }
         }
+
+
     }
 
     private void fileUploader() {
@@ -196,5 +215,85 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    private void requestPermission(boolean fromGallery){
 
+        if (fromGallery){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_STORAGE);
+                }else {
+                    readDataExternal();
+                }
+            }else {
+               readDataExternal();
+            }
+        }else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+                }else {
+                    takePhotoFromCamera();
+                }
+            }else {
+                takePhotoFromCamera();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case MY_PERMISSIONS_REQUEST_CAMERA : {
+                if (grantResults.length ==0 || grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getContext(), "permission denied, boo!", Toast.LENGTH_SHORT).show();
+                }else {
+                    takePhotoFromCamera();
+                }
+                break;
+            }
+            case READ_STORAGE :{
+                if (grantResults.length ==0 || grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getContext(), "permission denied, boo!", Toast.LENGTH_SHORT).show();
+                }else {
+                    readDataExternal();
+                }
+                break;
+            }
+            default: break;
+        }
+    }
+
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getContext());
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {"Select photo from gallery","Capture photo from camera"};
+        pictureDialog.setItems(pictureDialogItems, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case 0 :{
+                       requestPermission(true);
+                       break;
+                    }
+                    case 1 : {
+                        requestPermission(false);
+                        break;
+                    }
+                }
+            }
+        });
+        pictureDialog.show();
+    }
+
+    private void readDataExternal(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_REQUEST_CODE);
+    }
+
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);
+    }
 }

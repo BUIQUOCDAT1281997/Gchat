@@ -27,7 +27,7 @@
                 android:layout_height="30dp"
                 app:civ_border_width="1dp"
                 app:civ_border_color="@color/white"
-                android:src="@drawable/pngtest" />
+                android:src="@drawable/ic_user" />
 
             <TextView
                 android:id="@+id/chat_user_name"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
-                android:text="UserName"
+                android:text="@string/user_name"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_border_edittext"
             android:ems="10"
-            android:hint="Aa..."
+            android:hint="@string/aa"
             android:inputType="text"
             android:padding="10dp" />
 

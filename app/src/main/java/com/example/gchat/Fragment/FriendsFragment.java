@@ -108,7 +108,6 @@ public class FriendsFragment extends Fragment {
         });
     }
 
-
     private void initView() {
         //list user
         listUser = new ArrayList<>();

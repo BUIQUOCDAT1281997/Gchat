@@ -74,12 +74,5 @@
         android:layout_marginTop="10dp"
         android:text="@string/create" />
 
-    <TextView
-        android:id="@+id/tv_sign_up_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="italic"
-        android:text="Sign up with phone number" />
 
 </LinearLayout>

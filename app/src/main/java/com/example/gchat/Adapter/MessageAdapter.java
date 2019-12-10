@@ -21,10 +21,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    public static final int VIEW_TYPE_RIGHT = 1;
-    public static final int VIEW_TYPE_LEFT = 0;
-
-    private FirebaseUser firebaseUser;
+    private static final int VIEW_TYPE_RIGHT = 1;
+    private static final int VIEW_TYPE_LEFT = 0;
 
     private String imageUrl;
     private List<Chat> mListData;
@@ -74,13 +72,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         return mListData.size();
     }
 
-    public class MessageViewHolder extends RecyclerView.ViewHolder {
+    class MessageViewHolder extends RecyclerView.ViewHolder {
 
-        public CircleImageView circleImageView;
-        public TextView textView;
-        public TextView tvSeen;
+        CircleImageView circleImageView;
+        TextView textView;
+        TextView tvSeen;
 
-        public MessageViewHolder(@NonNull View itemView) {
+        MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             circleImageView = itemView.findViewById(R.id.circle_view_item_chat);
             textView = itemView.findViewById(R.id.textView_item_chat);
@@ -90,7 +88,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemViewType(int position) {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert firebaseUser != null;
         if (mListData.get(position).getSender().equals(firebaseUser.getUid())) {
             return VIEW_TYPE_RIGHT;
         } else {

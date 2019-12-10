@@ -31,7 +31,7 @@ public class StartActivity extends AppCompatActivity {
         finish();
     }
 
-    //hind keyboard
+    //hint keyboard
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
