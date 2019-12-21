@@ -1,6 +1,7 @@
 package com.example.gchat.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.gchat.Activity.MainActivity;
 import com.example.gchat.R;
 import com.example.gchat.Activity.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

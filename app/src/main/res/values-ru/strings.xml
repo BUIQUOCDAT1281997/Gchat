@@ -4,7 +4,7 @@
     <string name="email">Почта</string>
     <string name="password">Пароль</string>
     <string name="search">Найти</string>
-    <string name="user_name">Твое имя</string>
+    <string name="user_name">имя пользователя</string>
     <string name="Authentication_failed">Почта и пароль не верны</string>
     <string name="aa">Aa...</string>
     <string name="All_fields_are_required">Все поля обязательны для заполнения</string>
@@ -16,12 +16,13 @@
     <string name="hi">Привет!</string>
     <string name="log_in">Войти</string>
     <string name="log_out">Выйти</string>
-    <string name="not_seen">не видел</string>
+    <string name="not_seen">не прочитано</string>
     <string name="please_wait">Подождите...</string>
-    <string name="seen">Видели</string>
+    <string name="seen">прочитано</string>
     <string name="sign_in">Войти</string>
     <string name="sign_up">Выйти</string>
     <string name="status">Состояние</string>
-    <string name="textView_login">Войти в Ваший аккаунт</string>
-    <string name="your_account">Ваший профиль</string>
+    <string name="textView_login">Войти в Ваш аккаунт</string>
+    <string name="your_account">Ваш профиль</string>
+    <string name="you_want_to_log_out">Вы хотите выйти ?</string>
 </resources>

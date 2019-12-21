@@ -93,7 +93,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                                 .load(user.getAvatarURL())
                                 .placeholder(R.drawable.ic_user)
                                 .into(imgUser);
-                    }catch (NullPointerException e){
+                    }catch (NullPointerException ignored){
 
                     }
 
